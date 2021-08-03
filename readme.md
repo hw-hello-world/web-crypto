@@ -1,3 +1,9 @@
+# Instillation
+
+1. make sure `node >= 12.13.0` and `yarn` is installed.
+1. `yarn install`
+1. `yarn start`
+
 # Notes
 
 1. data size after `RSA-OAEP` encryption is increased a lot.

@@ -1,11 +1,23 @@
 const enc = new TextEncoder("utf-8");
+const bufferToBase64 = (cryptoBuffer) => {
+  const str = bufferToStr(cryptoBuffer);
+  return btoa(str);
+}
+const base64ToBuffer = (base64Str) => {
+  const str = atob(base64Str);
+  return strToBuffer(str);
+
+}
 const bufferToStr = (cryptoBuffer) => {
   const xs = new Uint8Array(cryptoBuffer);
-  return String.fromCharCode.apply(null, xs);
+  const ys = String.fromCharCode.apply(null, xs);
+
+  return ys;
 }
 
-const strToIntArrayBuffer = (str) => {
-  return new Uint8Array(str.split('').map(c => c.charCodeAt(0)));
+const strToBuffer = (str) => {
+  const xs = new Uint8Array(str.split('').map(c => c.charCodeAt(0)));
+  return xs;
 }
 
 // create a derived key from master password
@@ -99,7 +111,7 @@ const encrypt = () => {
               // Suppose to save to DB.
               // But use session storage as temporary storage instead of DB.
               sessionStorage.setItem('my_pub_key', JSON.stringify(pair.public));
-              sessionStorage.setItem('my_private_encrypted_key', bufferToStr(encryptedPrivateKey));
+              sessionStorage.setItem('my_private_encrypted_key', bufferToBase64(encryptedPrivateKey));
             });
         })
         .then(function() {
@@ -131,18 +143,17 @@ const encrypt = () => {
                   enc.encode(appPassword)
                 ).then(function(ciphertext) {
                   let cipherBuffer = new Uint8Array(ciphertext);
-                  let cipherStr = bufferToStr(cipherBuffer);
+                  let cipherStrBase64 = bufferToBase64(cipherBuffer);
                   console.group('Encryption');
                   console.log('public key:', publicKey);
                   console.log('plainText:', appPassword);
                   console.log('plainText length:', appPassword.length);
-                  // console.log('encrypted buffer:', cipherBuffer);
                   console.log('encrypted buffer size:', cipherBuffer.byteLength);
-                  console.log('encrypted string:', cipherStr);
-                  console.log('encrypted string length:', cipherStr.length);
+                  console.log('encrypted base64 string:', cipherStrBase64);
+                  console.log('encrypted base64 string length:', cipherStrBase64.length);
                   console.groupEnd();
 
-                  document.getElementById('app_encrypted_password').textContent = cipherStr;
+                  document.getElementById('app_encrypted_password').textContent = cipherStrBase64;
 
                 });
               });
@@ -166,7 +177,7 @@ const decrypt = () => {
           return window.crypto.subtle.decrypt(
             { name: "AES-GCM", iv: cache.kekIV },
             kek,
-            strToIntArrayBuffer(encryptedPrivateKey),
+            base64ToBuffer(encryptedPrivateKey),
           )
             .then(myPrivateKeyStr => {
               // 8.3
@@ -182,7 +193,7 @@ const decrypt = () => {
                 ["decrypt"])
                 .then(function(privateKey) {
 
-                  let bufferForDecrypt = strToIntArrayBuffer(cipherStr)
+                  let bufferForDecrypt = base64ToBuffer(cipherStr)
                   console.group('Decryption');
                   console.log('buffer for decryption:', bufferForDecrypt);
 
