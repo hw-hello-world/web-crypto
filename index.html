@@ -2,17 +2,34 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Hello Web Crypto</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        <script src="node_modules/lodash/lodash.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script type="text/javascript" src="main.js"></script>
-
+        <style>
+         .error {color: '#da372c;'}
+        </style>
     </head>
     <body>
+        <div>
+          <label>Master key</label>
+          <input type="text" id="master_key" value="abc123" />
+        </div>
+        <div>
+          <label>App password</label>
+          <input type="text" id="app_password" value="secure-+pwd+-123"/>
+        </div>
+        <div>
+            <label>Encrypted password:</label>
+            <span id="app_encrypted_password"></span>
+        </div>
+        <div>
+            <label>Decrypted password:</label>
+            <span id="app_decrypted_password"></span>
+        </div>
+
+        <button id="encrypt">Encrypt</button>
+        <button id="decrypt">Decrypt</button>
+        <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
