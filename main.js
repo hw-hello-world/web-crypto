@@ -73,10 +73,11 @@ const encrypt = () => {
       // 1. generate pub/private pair
       // 2. derived master unlock key (Key encryption key)
       Promise.all([
+        // TODO: dont need to generate pub/private key when exists already.
         window.crypto.subtle.generateKey(
           {
             name: "RSA-OAEP",
-            modulusLength: 1024,
+            modulusLength: 2048,
             // TODO: what is `publicExponent`
             publicExponent: new Uint8Array([1, 0, 1]),
             hash: "SHA-256"
@@ -215,7 +216,7 @@ const decrypt = () => {
                       console.log('plain text:', decryptedStr);
                       console.groupEnd();
                       document.getElementById('app_decrypted_password').textContent = decryptedStr;
-                      const originalPassword = document.getElementById('app_password').textContent
+                      const originalPassword = document.getElementById('app_password').value;
                       document.getElementById('assertion').textContent = decryptedStr === originalPassword;
                     })
                     ;
