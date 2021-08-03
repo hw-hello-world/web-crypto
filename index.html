@@ -1,35 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Hello Web Crypto</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <style>
+<head>
+    <meta charset="utf-8">
+    <title>Hello Web Crypto</title>
+    <meta name="description" content="">
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1">
+    <style>
          .error {color: '#da372c;'}
-        </style>
-    </head>
-    <body>
-        <div>
-          <label>Master key</label>
-          <input type="text" id="master_key" value="abc123" />
-        </div>
-        <div>
-          <label>App password</label>
-          <input type="text" id="app_password" value="secure-+pwd+-123"/>
-        </div>
-        <div>
-            <label>Encrypted password (base64):</label>
-            <pre id="app_encrypted_password" style="width:500px;white-space:pre-wrap;word-break:break-all;"></pre>
-        </div>
-        <div>
-            <label>Decrypted password:</label>
-            <pre id="app_decrypted_password"></pre>
-        </div>
-
-        <button id="encrypt">Encrypt</button>
-        <button id="decrypt">Decrypt</button>
-        <script type="text/javascript" src="main.js"></script>
-    </body>
+    </style>
+</head>
+<body>
+    <div>
+        <label>Master key</label>
+        <input type="text" id="master_key" value="abc123">
+    </div>
+    <div>
+        <label for="app_password">App password</label>
+        <input type="number" id="password_range" name="password_range" value="12" step=
+        "1" min="1" max="1000" title="appPasswordRange" style=
+        "width:100px">
+        <textarea id="app_password" style=
+        "display:block;width:500px;height:100px;">secure-+pwd+-123</textarea>
+    </div>
+    <div>
+        <label>Encrypted password (base64):</label>
+        <pre id="app_encrypted_password" style=
+        "width:500px;white-space:pre-wrap;word-break:break-all;">
+        </pre>
+    </div>
+    <div>
+        <label>Decrypted password:</label>
+        <pre id="app_decrypted_password"></pre>
+    </div>
+    <div>
+        <label>Assertion (decrypted password is identical to the
+        origin):</label>
+        <pre id="assertion"></pre>
+    </div>
+    <div>
+        <button id="encrypt">Encrypt</button> <button id=
+        "decrypt">Decrypt</button>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+</body>
 </html>

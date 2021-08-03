@@ -58,6 +58,7 @@ type Cache = {
 let cache = {};
 
 const encrypt = () => {
+  document.getElementById('assertion').textContent = '';
   document.getElementById('app_encrypted_password').textContent = '';
   document.getElementById('app_decrypted_password').textContent = '';
   document.getElementById('app_decrypted_password').removeAttribute('class');
@@ -75,7 +76,8 @@ const encrypt = () => {
         window.crypto.subtle.generateKey(
           {
             name: "RSA-OAEP",
-            modulusLength: 2048,
+            modulusLength: 1024,
+            // TODO: what is `publicExponent`
             publicExponent: new Uint8Array([1, 0, 1]),
             hash: "SHA-256"
           },
@@ -163,6 +165,7 @@ const encrypt = () => {
 };
 
 const decrypt = () => {
+  document.getElementById('assertion').textContent = '';
   document.getElementById('app_decrypted_password').textContent = '';
   document.getElementById('app_decrypted_password').removeAttribute('class');
 
@@ -212,6 +215,8 @@ const decrypt = () => {
                       console.log('plain text:', decryptedStr);
                       console.groupEnd();
                       document.getElementById('app_decrypted_password').textContent = decryptedStr;
+                      const originalPassword = document.getElementById('app_password').textContent
+                      document.getElementById('assertion').textContent = decryptedStr === originalPassword;
                     })
                     ;
                 });
@@ -225,5 +230,21 @@ const decrypt = () => {
     })
 };
 
+const getRandomInt = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const randStr = () => {
+  const i = getRandomInt(33, 122);
+  return String.fromCharCode(i);
+};
+
 document.getElementById('encrypt').onclick = encrypt;
 document.getElementById('decrypt').onclick = decrypt;
+document.getElementById('password_range').onchange = (e) => {
+  var result = '';
+  for (var i = 1; i <= e.target.value; i++) {
+    result += randStr();
+  }
+  document.getElementById('app_password').value = result;
+}
