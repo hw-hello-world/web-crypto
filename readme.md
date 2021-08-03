@@ -10,5 +10,6 @@
 # Reference
 
 1. https://getstream.io/blog/web-crypto-api-chat/
-2. https://mdn.github.io/dom-examples/web-crypto/derive-key/index.html
-3. https://github.com/hw-hello-world/web-crypto/blob/main/main.js
+1. https://bradyjoslin.com/blog/encryption-webcrypto/
+1. https://mdn.github.io/dom-examples/web-crypto/derive-key/index.html
+1. https://github.com/hw-hello-world/web-crypto/blob/main/main.js
