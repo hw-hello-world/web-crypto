@@ -69,8 +69,12 @@ const getRandStr = () => {
 /*
 -- salt and iv has to be shared in order to derived same key (KEK: key for encrypt/decrypt private key)
 type Cache = {
+  // salt for creating master unlock key
   kekSalt: Uint8Array,
+  // IV for encrypt private key using MUK
   kekIV: Uint8Array,
+  // IV for encrypt vault items
+  vaultIV: Uint8Array
 };
 */
 

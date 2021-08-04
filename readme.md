@@ -30,7 +30,10 @@
 1. what's max input size per RSA key size?
    - 1024 -> 62
    - 2048 -> ??
-1. salt and iv for creating derived key must be shared.
+1. salt for creating derived key must be shared.
+1. can IV, which used by AES encryption, be store together with encrypted string?
+   - e.g. `encryptePrivateKeyStr = encryptedPrivateKey + IV`
+   - e.g. `encrypteVaultItemStr = encryptedVaultItem + IV`
 
 # Reference
 
