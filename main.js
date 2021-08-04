@@ -130,7 +130,7 @@ const encrypt = () => {
             .then(function() {
               // 5. encrypt private key (JSON.stringified JWK key)
               const privateKeyJson = JSON.stringify(dbSession.privateKeyJwk);
-              const iv = window.crypto.getRandomValues(new Uint8Array(16));
+              const iv = window.crypto.getRandomValues(new Uint8Array(12));
               cache.kekIV = iv;
               return window.crypto.subtle.encrypt(
                 { name: "AES-GCM", iv },
@@ -189,7 +189,7 @@ const encrypt = () => {
                 // 7. use the public key encrypt App password
                 const appPassword = document.getElementById('app_password').value;
 
-                const iv = window.crypto.getRandomValues(new Uint8Array(16));
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
                 cache.vaultIv = iv;
                 return window.crypto.subtle.encrypt(
                   { name: "AES-GCM", iv, },
